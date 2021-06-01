@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-node
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api-node
+  template:
+    metadata:
+      labels:
+        app: api-node
+    spec:
+      containers:
+        - name: api-node
+          image: dancairo/app:v1
+          env:
+            - name: MYSQL_HOST
+              value: 172.17.0.2
+          ports:
+            - containerPort: 2000

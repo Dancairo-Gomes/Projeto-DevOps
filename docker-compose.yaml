@@ -14,16 +14,13 @@ services:
     volumes:
       - db-config:/etc/mysql
       - db-data:/var/lib/mysql
-      - ./db/backup/files/:/data_backup/data
     expose:
-      - "3307"
+      - "3306"
     networks:
       - backend
 
   app:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    image: dancairo/app:v1
     env_file: .env
     environment:
       - MYSQL_HOST=db
