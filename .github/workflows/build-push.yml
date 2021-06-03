@@ -1,44 +1,34 @@
-
-
-name: Build and Push Docker Image
-
+name: Deploy minikube
 on:
-
-  push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
-
- 
-  workflow_dispatch:
-
+  - push
+  - pull_request
 jobs:
-  docker:
-    runs-on: ubuntu-latest
+  job1:
+    runs-on: ubuntu:latest
+    name: build discover and deploy
     steps:
-    -
-      name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
-    -
-      name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-    -
-      name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: dancairo
-        password: 19091993
-    -
-      name: Build and Push
-      id: docker_build
-      uses: docker/build-push-action@v2
-      with:
-        dockerfile: .
-        push: true
-        tags: dancairo/api-nodejs:v1
-        
-    -
-      name: Image api nodejs
-      run: echo ${{ steps.docker_build.outputs.digest }}
-    
- 
+    - uses: actions/checkout@v2
+    - name: Start minikube
+      uses: medyagh/setup-minikube@master
+    - name: Try the Cluster
+      run: kubectl get pods -A
+    - name: Build Image
+      run : | 
+        export SHELL=/bin/bash
+        eval $(minikube -p minikube docker-env)
+        make build-image
+        echo -n "verifying images:"
+        docker images
+    - name: Deploy to minikube
+        run:
+          kubectl apply -f ./kubernetes/mysql.yaml
+        run:
+          kubectl apply -f ./kubernetes/webapi.yaml
+        run:
+          kubectl apply -f ./kubernetes/services.yaml
+    - name: Test service URLs
+      run: | 
+        minikube service list
+        minikube service discover --url
+        echo -n "------------------opening the service------------------"
+        curl $(minikube service discover --url)/version      
