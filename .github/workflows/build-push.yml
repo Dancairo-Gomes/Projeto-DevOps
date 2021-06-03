@@ -20,12 +20,10 @@ jobs:
         echo -n "verifying images:"
         docker images
     - name: Deploy to minikube
-        run:
-          kubectl apply -f ./kubernetes/mysql.yaml
-        run:
-          kubectl apply -f ./kubernetes/webapi.yaml
-        run:
-          kubectl apply -f ./kubernetes/services.yaml
+      run:
+        kubectl apply -f ./kubernetes/mysql.yaml
+        kubectl apply -f ./kubernetes/webapi.yaml
+        kubectl apply -f ./kubernetes/services.yaml
     - name: Test service URLs
       run: | 
         minikube service list
