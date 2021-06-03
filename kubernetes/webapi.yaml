@@ -16,6 +16,6 @@ spec:
           image: dancairo/app:v1
           env:
             - name: MYSQL_HOST
-              value: api-mysql
+              value: mysql
           ports:
             - containerPort: 2000
