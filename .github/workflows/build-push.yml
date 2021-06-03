@@ -15,9 +15,17 @@ jobs:
     - name: Deploy to minikube
       run: |
         kubectl apply -f ./kubernetes/mysql.yaml
-        kubectl get pods
+        echo "criando container mysql"
+        echo "criando container mysql"
+        echo "criando container mysql"
+        echo "criando container mysql"
+        echo "criando container mysql"
         kubectl apply -f ./kubernetes/webapi.yaml
-        kubectl get pods
+        echo "criando container nodejs"
+        echo "criando container nodejs"
+        echo "criando container nodejs"
+        echo "criando container nodejs"
+        echo "criando container nodejs"
         kubectl apply -f ./kubernetes/services.yaml
     - name: Test service URLs
       run: | 
