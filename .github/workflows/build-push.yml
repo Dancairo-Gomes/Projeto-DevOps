@@ -19,7 +19,8 @@ jobs:
         kubectl apply -f ./kubernetes/services.yaml
     - name: Test service URLs
       run: | 
-        minikube service list
+        minikube service mysql
+        minikube service api-service
         minikube service discover --url
         echo -n "------------------opening the service------------------"
-        curl $(minikube service discover --url)/version      
+    
