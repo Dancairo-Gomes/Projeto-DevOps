@@ -15,7 +15,9 @@ jobs:
     - name: Deploy to minikube
       run: |
         kubectl apply -f ./kubernetes/mysql.yaml
+        kubectl get pods
         kubectl apply -f ./kubernetes/webapi.yaml
+        kubectl get pods
         kubectl apply -f ./kubernetes/services.yaml
     - name: Test service URLs
       run: | 
