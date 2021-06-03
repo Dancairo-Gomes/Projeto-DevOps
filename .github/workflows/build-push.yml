@@ -14,7 +14,7 @@ jobs:
       run: kubectl get pods -A
     - name: Build Image
     - name: Deploy to minikube
-      run: |
+      run: 
         kubectl apply -f ./kubernetes/mysql.yaml
         kubectl apply -f ./kubernetes/webapi.yaml
         kubectl apply -f ./kubernetes/services.yaml
