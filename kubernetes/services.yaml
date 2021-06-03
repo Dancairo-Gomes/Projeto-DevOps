@@ -8,7 +8,10 @@ spec:
   ports:
     - protocol: TCP
       port: 3306
-
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.49.2
+    
 ---
 kind: Service
 apiVersion: v1
@@ -24,3 +27,4 @@ spec:
   type: LoadBalancer
   externalIPs:
     - 192.168.49.2
+
