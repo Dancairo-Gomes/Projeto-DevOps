@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: api-node
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: api-node
@@ -17,6 +16,6 @@ spec:
           image: dancairo/app:v1
           env:
             - name: MYSQL_HOST
-              value: 172.17.0.2
+              value: api-mysql
           ports:
             - containerPort: 2000
